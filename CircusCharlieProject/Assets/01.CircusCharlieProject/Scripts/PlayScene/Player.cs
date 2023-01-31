@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    const string IS_RUN = "IsRun";
     private Rigidbody2D playerRigidBody;
+    private Animator playerAnimator;
     public float speed;
     public float jumpForce;
+
+    private bool IsJump = false;
 
     public void Start()
     {
         playerRigidBody = gameObject.GetComponentMust<Rigidbody2D>();
+        playerAnimator = gameObject.GetComponentMust<Animator>();
     }
 
     public void OnLeft_Btn_Click()
@@ -25,6 +30,17 @@ public class Player : MonoBehaviour
 
     public void OnJump_Btn_Click()
     {
-        playerRigidBody.AddForce(Vector2.up * jumpForce);
+        if(!IsJump)
+        {
+            playerRigidBody.AddForce(Vector2.up * jumpForce);
+            IsJump = true;
+        }
     }
+
+    public void OnCollisionEnter2D()
+    {
+        
+    }
+
+
 }

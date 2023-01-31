@@ -7,8 +7,8 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/01.CircusCharlieProject/Scenes/01.TitleScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    guid: 0d0fb4a5c2f9a1947a269129c38cdbdf
   - enabled: 1
     path: Assets/01.CircusCharlieProject/Scenes/02.PlayScene.unity
-    guid: 04fd610d758ed32458de755f36facbff
+    guid: fb1fe0284fad6174fba4d0103891ffce
   m_configObjects: {}
