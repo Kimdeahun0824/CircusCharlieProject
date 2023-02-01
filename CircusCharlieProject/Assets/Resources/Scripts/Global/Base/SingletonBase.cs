@@ -4,17 +4,19 @@ using UnityEngine;
 using System;
 public class SingletonBase<T> : MonoBehaviour where T : SingletonBase<T>
 {
-    private static readonly Lazy<T> _instance = new Lazy<T>(() => CreateInstance());
+    private static T _instance;
     public static T Instance
     {
         get
         {
-            return _instance.Value;
+            return _instance;
         }
     }
 
-    private static T CreateInstance()
+    void Awake()
     {
-        return Activator.CreateInstance(typeof(T), true) as T;
+        _instance = GetComponent<T>();
+        DontDestroyOnLoad(gameObject);
     }
+
 }
