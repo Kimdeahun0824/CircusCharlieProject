@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Btn_Exit : MonoBehaviour
 {
-    public void OnExitBtnClick(){
+    public void OnExitBtnClick()
+    {
         GFunc.QuitThisGame();
     }
 }
