@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    private const float PLAYER_MIN_POS_X = 64f;
+    private const float PLAYER_MAX_POS_X = 19136f;
     const string IS_RUN = "IsRun";
     const string IS_JUMP = "IsJump";
 

@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/01.CircusCharlieProject/Scenes/02.PlayScene.unity
     guid: 04fd610d758ed32458de755f36facbff
+  - enabled: 1
+    path: Assets/01.CircusCharlieProject/Scenes/03.PlayScene.unity
+    guid: 39d7c620c89cb4348b24af01e45e36a2
   m_configObjects: {}
