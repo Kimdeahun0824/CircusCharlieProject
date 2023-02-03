@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public List<string> audioSourceNames;
+    public List<AudioClip> audioSources;
+    public Dictionary<string, AudioClip> dicPlayerAudioSource;
     private const float PLAYER_DIR_LEFT = -1f;
     private const float PLAYER_DIR_MIDDLE = 0f;
     private const float PLAYER_DIR_RIGHT = 1f;
@@ -28,6 +31,12 @@ public class Player : MonoBehaviour
 
     public void Start()
     {
+        dicPlayerAudioSource = new Dictionary<string, AudioClip>();
+        for (int i = 0; i < audioSourceNames.Count; i++)
+        {
+            dicPlayerAudioSource.Add(audioSourceNames[i], audioSources[i]);
+        }
+        //playerAudioSource = new List<AudioSource>();
         playerRigidBody = gameObject.GetComponentMust<Rigidbody2D>();
         playerAnimator = gameObject.GetComponentMust<Animator>();
         playerAudioSrc = gameObject.GetComponentMust<AudioSource>();
@@ -38,7 +47,6 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-        //GameManager.Instance.currentStage++;
         if (IsGoal || IsDie)
         {
             return;
@@ -74,12 +82,12 @@ public class Player : MonoBehaviour
         {
             if (!IsJump)
             {
-                playerRigidBody.AddForce(Vector2.up * jumpForce);
-                IsJump = true;
-                playerAnimator.SetBool(ANIMATOR_BOOL_IS_JUMP, IsJump);
+                Jump();
             }
         }
     }
+
+    #region Move And Jump
     public void Move()
     {
         transform.Translate(new Vector3(direction * speed * Time.deltaTime, 0f, 0f));
@@ -110,18 +118,34 @@ public class Player : MonoBehaviour
     {
         if (!IsJump)
         {
-            playerRigidBody.AddForce(Vector2.up * jumpForce);
-            IsJump = true;
-            playerAnimator.SetBool(ANIMATOR_BOOL_IS_JUMP, IsJump);
+            Jump();
         }
     }
+    public void Jump()
+    {
+        playerRigidBody.AddForce(Vector2.up * jumpForce);
+        IsJump = true;
+        playerAnimator.SetBool(ANIMATOR_BOOL_IS_JUMP, IsJump);
+        if (!IsDie)
+        {
+            playerAudioSrc.clip = dicPlayerAudioSource["JumpAudio"];
+            playerAudioSrc.Play();
+        }
 
+    }
+    #endregion
+
+    #region Collision Check
     public void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag.Equals("Goal"))
         {
             IsGoal = true;
             playerAnimator.SetTrigger("Goal");
+            GameManager.Instance.player_Is_Goal = IsGoal;
+            GameManager.Instance.StageClear();
+            playerAudioSrc.clip = dicPlayerAudioSource["GoalAudio"];
+            playerAudioSrc.Play();
         }
         IsJump = false;
         playerAnimator.SetBool(ANIMATOR_BOOL_IS_JUMP, IsJump);
@@ -135,14 +159,29 @@ public class Player : MonoBehaviour
         }
         if (other.tag.Equals(GData.SCORE))
         {
-
+            OnScoreAdd();
         }
     }
+    #endregion
 
     public void OnPlayerDie()
     {
         playerAnimator.SetTrigger(ANIMATOR_TRIGGER_DIE);
+        GetComponent<BoxCollider2D>().enabled = false;
         IsDie = true;
+        GameManager.Instance.player_Is_Die = IsDie;
+        playerAudioSrc.clip = dicPlayerAudioSource["DieAudio"];
+        playerAudioSrc.Play();
+        Jump();
+        GameManager.Instance.GameRestart();
+    }
+
+    public void OnScoreAdd()
+    {
+        GameManager.Instance.Score += 100;
+        GameManager.Instance.ScoreTextChange();
+        playerAudioSrc.clip = dicPlayerAudioSource["ScoreAudio"];
+        playerAudioSrc.Play();
     }
 
 

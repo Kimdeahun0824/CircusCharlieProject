@@ -7,6 +7,6 @@ public class Btn_Start : MonoBehaviour
     public void OnStartBtnClick()
     {
         GameManager.Instance.currentStage = 1;
-        GFunc.LoadScene(GData.SCENE_NAME_PLAY);
+        GFunc.LoadScene(GData.PLAY_STAGE1_SCENE_NAME);
     }
 }

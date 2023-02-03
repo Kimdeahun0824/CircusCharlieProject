@@ -9,9 +9,9 @@ EditorBuildSettings:
     path: Assets/01.CircusCharlieProject/Scenes/01.TitleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/01.CircusCharlieProject/Scenes/02.PlayScene.unity
+    path: Assets/01.CircusCharlieProject/Scenes/02.Play_Stage_1.unity
     guid: 04fd610d758ed32458de755f36facbff
   - enabled: 1
-    path: Assets/01.CircusCharlieProject/Scenes/03.PlayScene.unity
-    guid: 39d7c620c89cb4348b24af01e45e36a2
+    path: Assets/01.CircusCharlieProject/Scenes/03.Play_Stage_2.unity
+    guid: 28aea0b929f6c62418eee05c4a12dac3
   m_configObjects: {}

@@ -20,5 +20,7 @@ public class CameraMove : MonoBehaviour
     {
         targetPositionX = Mathf.Clamp(playerRectTransform.localPosition.x, MAP_MIN_SIZE_X, MAP_MAX_SIZE_X);
         myRectTransform.localPosition = new Vector3(targetPositionX, 0f, -100f);
+
+        GameManager.Instance.cameraPosition = transform.localPosition;
     }
 }
