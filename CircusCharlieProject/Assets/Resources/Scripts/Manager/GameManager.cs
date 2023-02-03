@@ -22,21 +22,26 @@ public class GameManager : SingletonBase<GameManager>
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        GFunc.Log($"OnSceneLoaded : {scene.name}");
         player_Is_Goal = false;
         player_Is_Die = false;
         if (scene.name.Equals(GData.PLAY_STAGE1_SCENE_NAME))
         {
             FindUiBoard();
+            StageTextChange();
+            ScoreTextChange();
         }
         if (scene.name.Equals(GData.PLAY_STAGE2_SCENE_NAME))
         {
             FindUiBoard();
-        }
-        if (!stageText.Equals(null) && !scoreText.Equals(null))
-        {
             StageTextChange();
             ScoreTextChange();
         }
+        if (scene.name.Equals("00.InitScene"))
+        {
+            GFunc.LoadScene(GData.TITLE_SCENE_NAME);
+        }
+
     }
 
     public void FindUiBoard()
@@ -66,14 +71,18 @@ public class GameManager : SingletonBase<GameManager>
     {
         yield return new WaitForSeconds(2f);
         GFunc.LoadScene(GData.TITLE_SCENE_NAME);
-
+    }
+    public new void Awake()
+    {
+        base.Awake();
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        ScreenSetResolution();
+        currentStage = 0;
     }
 
     public void Start()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        ScreenSetResolution();
-        currentStage = 0;
+
     }
 
     private void ScreenSetResolution()

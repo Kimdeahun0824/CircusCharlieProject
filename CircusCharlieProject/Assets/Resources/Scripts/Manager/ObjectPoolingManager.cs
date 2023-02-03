@@ -15,21 +15,18 @@ public class ObjectPoolingManager : SingletonBase<ObjectPoolingManager>
 
         SceneManager.sceneLoaded += OnSceneLoaded;
 
-        GameObject rootObj = GFunc.GetRootObj(GData.ROOT_GAME_OBJS);
-        objParent = GFunc.FindChildObj(rootObj, "WorldObjs");
-        objParent = GFunc.FindChildObj(objParent, "Obstacles");
-        obstacleObj = GFunc.FindChildObj(objParent, "Obstacle_FireRing");
-
         obstaclePool = new Stack<GameObject>();
-
-        PoolInit();
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.name.Equals(GData.PLAY_STAGE1_SCENE_NAME))
         {
-
+            GameObject rootObj = GFunc.GetRootObj(GData.ROOT_GAME_OBJS);
+            objParent = GFunc.FindChildObj(rootObj, "WorldObjs");
+            objParent = GFunc.FindChildObj(objParent, "Obstacles");
+            obstacleObj = GFunc.FindChildObj(objParent, "Obstacle_FireRing");
+            PoolInit();
         }
         if (scene.name.Equals(GData.PLAY_STAGE2_SCENE_NAME))
         {
