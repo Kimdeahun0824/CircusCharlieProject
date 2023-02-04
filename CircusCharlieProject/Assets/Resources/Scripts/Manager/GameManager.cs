@@ -70,6 +70,7 @@ public class GameManager : SingletonBase<GameManager>
     IEnumerator CoroutinesGameRestart()
     {
         yield return new WaitForSeconds(2f);
+        Score = 0;
         GFunc.LoadScene(GData.TITLE_SCENE_NAME);
     }
     public new void Awake()
@@ -107,8 +108,17 @@ public class GameManager : SingletonBase<GameManager>
     IEnumerator NextStage()
     {
         yield return new WaitForSeconds(1f);
-        currentStage++;
-        GFunc.LoadScene(GData.PLAY_STAGE2_SCENE_NAME);
+        if (GFunc.GetActiveScene().name.Equals(GData.PLAY_STAGE1_SCENE_NAME))
+        {
+            currentStage = 2;
+            GFunc.LoadScene(GData.PLAY_STAGE2_SCENE_NAME);
+        }
+        else if (GFunc.GetActiveScene().name.Equals(GData.PLAY_STAGE2_SCENE_NAME))
+        {
+            currentStage = 0;
+            Score = 0;
+            GFunc.LoadScene(GData.TITLE_SCENE_NAME);
+        }
     }
 
     void Update()

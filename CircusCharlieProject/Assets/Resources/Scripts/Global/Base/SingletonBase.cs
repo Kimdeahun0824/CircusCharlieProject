@@ -30,7 +30,7 @@ public abstract class SingletonBase<T> : MonoBehaviour where T : SingletonBase<T
     #endregion
 
     #region Lazy<T> Singleton Version
-    private static readonly Lazy<T> _instance = new Lazy<T>(() =>
+    private static readonly Lazy<T> _instance = new Lazy<T>(() =>   // readonly 값 변경 제한, Lazy<T> 클래스를 활용하여 Thread Safe하게 싱글톤 패턴 구현, 람다식으로 인스턴스 생성
     {
         T instance = FindObjectOfType(typeof(T)) as T;
 
